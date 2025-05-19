@@ -9,7 +9,7 @@ app.use(express.static(path.join(__dirname, '../frontend/build')));
 require('dotenv').config();
 
 app.use(express.json());
-const allowedOrigins = ['https://your-frontend.vercel.app'];
+const allowedOrigins = [process.env.REACT_APP_API_URL];
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
