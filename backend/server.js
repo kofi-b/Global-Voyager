@@ -10,8 +10,6 @@ require('dotenv').config();
 
 app.use(express.json());
 const allowedOrigins = [];
-if (PROD_FRONTEND_URL) allowedOrigins.push(PROD_FRONTEND_URL);
-if (PREVIEW_FRONTEND_URL) allowedOrigins.push(PREVIEW_FRONTEND_URL);
 
 if (process.env.VERCEL_URL) {
     const currentDeploymentUrl = `https://${process.env.VERCEL_URL}`;
