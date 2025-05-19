@@ -9,7 +9,7 @@ function MapComponent() {
   const [hoveredCountryName, setHoveredCountryName] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:5000/countries')
+    fetch('${process.env.REACT_APP_API_URL}/countries')
       .then(response => response.json())
       .then(data => {
         const mergedData = data

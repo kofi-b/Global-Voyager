@@ -10,7 +10,7 @@ function HomePage() {
   // Fetch countries only when the globe is shown
   useEffect(() => {
     if (showGlobe) {
-      fetch('http://localhost:5000/countries')
+      fetch('http://${process.env.REACT_APP_API_URL}/countries')
         .then(response => response.json())
         .then(data => setCountries(data))
         .catch(error => console.error('Error fetching countries:', error));

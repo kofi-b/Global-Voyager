@@ -7,7 +7,16 @@ const port = 5000;
 require('dotenv').config();
 
 app.use(express.json());
-app.use(cors()); // Enable CORS
+const allowedOrigins = ['https://your-frontend.vercel.app'];
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+}));
 
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;
