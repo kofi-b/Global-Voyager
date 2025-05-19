@@ -14,25 +14,13 @@
     }
   ],
   "routes": [
-{
-    "src": "/static/(.*)",
-    "dest": "frontend/build/static/$1"
-  },
-  {
-    "src": "/favicon.ico",
-    "dest": "frontend/build/favicon.ico"
-  },
-  {
-    "src": "/manifest.json",
-    "dest": "frontend/build/manifest.json"
-  },
-  {
-    "src": "/robots.txt",
-    "dest": "frontend/build/robots.txt"
-  },
-  {
-    "src": "/(.*)",
-    "dest": "frontend/build/index.html"
-  }
+    {
+      "src": "/api/(.*)",
+      "dest": "backend/server.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/frontend/index.html"
+    }
   ]
 }
