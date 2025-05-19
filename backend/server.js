@@ -3,7 +3,9 @@ const cors = require('cors');
 const { createClient } = require('@supabase/supabase-js');
 const app = express();
 const axios = require('axios');
-const port = 5000;
+const port = process.env.PORT || 5000;
+const path = require('path');
+app.use(express.static(path.join(__dirname, '../frontend/build')));
 require('dotenv').config();
 
 app.use(express.json());
@@ -277,6 +279,10 @@ app.get('/populate-all-meals', async (req, res) => {
   }
 
   res.json({ message: 'Meals populated for all countries' });
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
 });
 
 app.listen(port, () => {
