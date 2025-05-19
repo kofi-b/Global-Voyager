@@ -1,0 +1,53 @@
+.country-page {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+main {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.country-details, .chart {
+  width: 45%;
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.meals {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.meals-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.meal-item {
+  width: 200px;
+  text-align: center;
+}
+
+.meal-item img {
+  border-radius: 8px;
+}
+
+h1, h2, h3 {
+  color: #333;
+}
+
+p {
+  color: #666;
+}

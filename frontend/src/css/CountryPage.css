@@ -1,0 +1,41 @@
+.country-page {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    display: grid;
+    grid-template-areas:
+      "header header"
+      "details chart"
+      "meals meals";
+    grid-gap: 20px;
+  }
+  
+  header {
+    grid-area: header;
+    text-align: center;
+  }
+  
+  .country-details, .chart, .meals {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .country-details { grid-area: details; }
+  .chart { grid-area: chart; }
+  .meals { grid-area: meals; }
+  
+  .meals-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .meal-item {
+    width: 200px;
+    text-align: center;
+  }
+  
+  .meal-item img {
+    border-radius: 8px;
+  }
