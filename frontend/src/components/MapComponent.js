@@ -7,9 +7,10 @@ function MapComponent() {
   const navigate = useNavigate();
   const [globeData, setGlobeData] = useState([]);
   const [hoveredCountryName, setHoveredCountryName] = useState(null);
+  const url = `http://${process.env.REACT_APP_API_URL}/countries`;
 
   useEffect(() => {
-    fetch('${process.env.REACT_APP_API_URL}/countries')
+    fetch(url)
       .then(response => response.json())
       .then(data => {
         const mergedData = data
@@ -30,7 +31,7 @@ function MapComponent() {
         setGlobeData(mergedData);
       })
       .catch(error => console.error('Error fetching countries:', error));
-  }, []);
+  }, [url]);
 
   const handleCountryClick = (country) => {
     navigate(`/country/${country.name}`);

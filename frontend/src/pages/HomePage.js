@@ -6,16 +6,16 @@ import Navbar from '../components/Navbar';
 function HomePage() {
   const [countries, setCountries] = useState([]);
   const [showGlobe, setShowGlobe] = useState(false); 
-
+  const url = `http://${process.env.REACT_APP_API_URL}/countries`;
   // Fetch countries only when the globe is shown
   useEffect(() => {
     if (showGlobe) {
-      fetch('http://${process.env.REACT_APP_API_URL}/countries')
+      fetch(url)
         .then(response => response.json())
         .then(data => setCountries(data))
         .catch(error => console.error('Error fetching countries:', error));
     }
-  }, [showGlobe]);
+  }, [showGlobe, url]);
 
   return (
     <div>
