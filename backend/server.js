@@ -59,18 +59,45 @@ const cuisineMapping = {
 
 // Endpoint to fetch countries from Supabase
 app.get('/countries', async (req, res) => {
-  try {
-    const { data, error } = await supabase
-      .from('countries')
-      .select('name, cca3, flag_url'); // Fetch name, cca3, and flag_url
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_KEY;
 
-    if (error) {
-      return res.status(500).json({ error: 'Failed to fetch countries' });
+  // check if Vercel is picking up the env vars 
+  console.log('Current SUPABASE_URL (exists):', !!supabaseUrl);
+  console.log('Current SUPABASE_KEY (exists):', !!supabaseKey);
+
+  if (!supabaseUrl || !supabaseKey) {
+    console.error('CRITICAL: SUPABASE_URL or SUPABASE_KEY is not set in the environment.');
+    return res.status(500).json({ error: 'Server configuration error: Database credentials missing.' });
+  }
+
+  if (!supabase) {
+    console.error('CRITICAL: Supabase client is not initialized.');
+    return res.status(500).json({ error: 'Server configuration error: Database client not initialized.' });
+  }
+
+  try {
+    console.log('Attempting to query Supabase for countries...');
+    const { data, error: dbError } = await supabase
+      .from('countries')
+      .select('name, cca3, flag_url');
+
+    if (dbError) {
+      console.error('Supabase DB Error in /countries:', JSON.stringify(dbError, null, 2)); // Log the full Supabase error
+      return res.status(500).json({ 
+        error: 'Failed to fetch countries from database.', 
+        details: dbError.message 
+      });
     }
 
-    res.json(data); // Send the country data to the frontend
-  } catch (error) {
-    res.status(500).json({ error: 'Server error' });
+    console.log(`Successfully fetched ${data ? data.length : 0} countries.`);
+    res.json(data);
+  } catch (err) {
+    console.error('Unexpected error in /countries route:', err.message, err.stack); // Log the full unexpected error
+    res.status(500).json({ 
+      error: 'An unexpected server error occurred.', 
+      details: err.message 
+    });
   }
 });
 
