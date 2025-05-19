@@ -9,16 +9,31 @@ app.use(express.static(path.join(__dirname, '../frontend/build')));
 require('dotenv').config();
 
 app.use(express.json());
-const allowedOrigins = [process.env.REACT_APP_API_URL];
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
+const allowedOrigins = [];
+if (PROD_FRONTEND_URL) allowedOrigins.push(PROD_FRONTEND_URL);
+if (PREVIEW_FRONTEND_URL) allowedOrigins.push(PREVIEW_FRONTEND_URL);
+
+if (process.env.VERCEL_URL) {
+    const currentDeploymentUrl = `https://${process.env.VERCEL_URL}`;
+    if (!allowedOrigins.includes(currentDeploymentUrl)) { 
+        allowedOrigins.push(currentDeploymentUrl);
     }
-  }
-}));
+}
+app.use(cors({
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true); 
+      if (allowedOrigins.length === 0) { 
+        console.warn('CORS: No allowedOrigins configured. Allowing all origins for now.');
+        return callback(null, true);
+      }
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        console.error(`CORS Error: Origin ${origin} not allowed. Allowed: ${allowedOrigins.join(', ')}`);
+        callback(new Error('Not allowed by CORS'));
+      }
+    }
+  }));
 
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;
