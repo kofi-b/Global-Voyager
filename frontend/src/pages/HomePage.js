@@ -6,7 +6,7 @@ import Navbar from '../components/Navbar';
 function HomePage() {
   const [countries, setCountries] = useState([]);
   const [showGlobe, setShowGlobe] = useState(false); 
-  const url = `http://${process.env.REACT_APP_API_URL}/countries`;
+  const url = `https://${process.env.REACT_APP_API_URL}/countries`;
   // Fetch countries only when the globe is shown
   useEffect(() => {
     if (showGlobe) {

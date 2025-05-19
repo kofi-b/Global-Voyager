@@ -7,7 +7,7 @@ function MapComponent() {
   const navigate = useNavigate();
   const [globeData, setGlobeData] = useState([]);
   const [hoveredCountryName, setHoveredCountryName] = useState(null);
-  const url = `http://${process.env.REACT_APP_API_URL}/countries`;
+  const url = `https://${process.env.REACT_APP_API_URL}/countries`;
 
   useEffect(() => {
     fetch(url)

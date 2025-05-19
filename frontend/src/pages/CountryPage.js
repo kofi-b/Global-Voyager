@@ -19,12 +19,12 @@ function CountryPage() {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const countryResponse = await fetch(`http://${process.env.REACT_APP_API_URL}/countries/${countryName}`);
+        const countryResponse = await fetch(`https://${process.env.REACT_APP_API_URL}/countries/${countryName}`);
         if (!countryResponse.ok) throw new Error('Country not found');
         const countryData = await countryResponse.json();
         setCountry(countryData);
 
-        const mealsResponse = await fetch(`http://${process.env.REACT_APP_API_URL}/meals/${countryName}`);
+        const mealsResponse = await fetch(`https://${process.env.REACT_APP_API_URL}/meals/${countryName}`);
         if (!mealsResponse.ok) throw new Error('Meals not found');
         const mealsData = await mealsResponse.json();
         setMeals(mealsData);
